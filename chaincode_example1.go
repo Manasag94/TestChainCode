@@ -61,6 +61,9 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 	} else if function == "write" {
 		fmt.Println("Function is write")
 		return t.write(stub, args)
+	} else if function == "delete" {
+		fmt.Println("Function is delete")
+		return t.del(stub, args)
 	}
 	fmt.Println("invoke did not find func: " + function)
 
@@ -102,6 +105,25 @@ func (t *SimpleChaincode) write(stub shim.ChaincodeStubInterface, args []string)
 
 	return nil, nil
 }
+
+// Deletes an entity from state
+func (t *SimpleChaincode) del(stub *shim.ChaincodeStubInterface, args []string) ([]byte, error) {
+	fmt.Println("Running delete")
+	
+	if len(args) != 1 {
+		return nil, errors.New("Incorrect number of arguments. Expecting 1")
+	}
+
+	A := args[0]
+
+	// Delete the key from the state in ledger
+	err := stub.DelState(A)
+	if err != nil {
+		return nil, errors.New("Failed to delete state")
+	}
+
+	return nil, nil
+}	
 
 // Query is our entry point for queries
 func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
