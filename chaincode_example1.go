@@ -63,7 +63,7 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 		return t.write(stub, args)
 	} else if function == "delete" {
 		fmt.Println("Function is delete")
-		return t.del(stub, args)
+		return t.del(args)
 	}
 	fmt.Println("invoke did not find func: " + function)
 
@@ -107,7 +107,7 @@ func (t *SimpleChaincode) write(stub shim.ChaincodeStubInterface, args []string)
 }
 
 // Deletes an entity from state
-func (t *SimpleChaincode) del(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
+func (t *SimpleChaincode) del(args []string) ([]byte, error) {
 	fmt.Println("Running delete")
 	
 	if len(args) != 1 {
