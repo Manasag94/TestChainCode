@@ -55,7 +55,7 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 
 	// Handle different functions
 	
-	} else if function == "init" {
+	if function == "init" {
 		fmt.Println("Function is init")
 		return t.Init(stub, function, args)
 	} else if function == "write" {
