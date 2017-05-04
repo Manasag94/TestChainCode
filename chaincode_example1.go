@@ -62,8 +62,8 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 		fmt.Println("Function is write")
 		return t.write(stub, args)
 	} else if function == "transfer" {
-		fmt.Println("Function is write")
-		return t.transfer(stub, args)
+		fmt.Println("Function is transfer")
+		return t.transfer(args)
 	} else if function == "delete" {
 		fmt.Println("Function is delete")
 		return t.del(stub, args)
@@ -110,7 +110,7 @@ func (t *SimpleChaincode) write(stub shim.ChaincodeStubInterface, args []string)
 }
 
 // Transaction makes payment of X units from A to B
-func (t *SimpleChaincode) transfer(stub *shim.ChaincodeStubInterface, args []string) ([]byte, error) {
+func (t *SimpleChaincode) transfer(args []string) ([]byte, error) {
 	fmt.Println("Running transfer")
 	
 	var A, B string    // Entities
